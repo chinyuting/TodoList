@@ -1,0 +1,12 @@
+@import "style.css";
+
+:root {
+  --light-color:rgb(255, 255, 255) ;
+  --background-color:rgb(243, 205, 108) ;
+  --dark-color:rgb(45, 45, 45);
+  --dark-hover-color:rgba(45, 45, 45, 0.8);
+  --line-color: rgb(147, 143, 134);
+  --bs-font-size: 1.2rem;
+  --bs-font-weight: 500;
+  --bs-border-radius: 8px;
+}
