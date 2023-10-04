@@ -5,12 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todo!</title>
-  <!-- <link rel="stylesheet" type="text/css" href="/src/style/main.css"> -->
 </head>
 <body>
   <div class="signinSignup">
     <div class="signinSignupPic">
-      <img src="../src/asset/images/left.png">
+      <img src="../dist/asset/images/left.png">
     </div>
     <div class="signinForm">
       <h1>最實用的線上待辦事項服務</h1>
@@ -38,11 +37,11 @@
       </div>
       <div class="signupPassword"  data-warn="此欄位不可為空">
         <label for="signupPassword">密碼</label>
-        <input type="text"  name="signupPassword" placeholder="請輸入密碼" class="inputRequired">
+        <input type="password"  name="signupPassword" placeholder="請輸入密碼" class="inputRequired">
       </div>
       <div class="confirmPassword"  data-warn="此欄位不可為空">
         <label for="confirmPassword">再次輸入密碼</label>
-        <input type="text"  name="confirmPassword" placeholder="請再次輸入密碼" class="inputRequired">
+        <input type="password"  name="confirmPassword" placeholder="請再次輸入密碼" class="inputRequired">
       </div>
       <button type="button" class="darkButton signupButtom">註冊帳號</button>
       <button type="button" class="toSignin lightButton">〱 回登入畫面</button>
@@ -52,7 +51,7 @@
   <div class="todoListPage displayNone">
     <nav>
       <div class="logo">
-        <img src="../src/asset/images/logo.png">
+        <img src="../dist/asset/images/logo.png">
       </div>
         <h3 class="TodoListTitle"></h3>
         <button type="button" class="lightButton logoutButton">登出</button>
@@ -75,7 +74,7 @@
 
       <div class="todosNothing displayNone">
         <p>目前尚無待辦事項</p>
-        <img src="../src/asset/images/empty.png" alt="">
+        <img src="../dist/asset/images/empty.png" alt="">
       </div>
     </div>
   </div>
