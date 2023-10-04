@@ -41,7 +41,6 @@ toSignin.addEventListener('click', function(e) {
   addClass(signupPage);
   removeClass(signinPage);
 });
-
 toSignup.addEventListener('click', function(e) {
   addClass(signinPage);
   removeClass(signupPage);
@@ -133,8 +132,6 @@ function signUp(email, nickname, password) {
         title: '註冊成功',
         text: '請在登入頁進行登入',
       })
-      signinEmail.children[1].value='';
-      signinPassword.children[1].value='';
       signupEmail.children[1].value='';
       signupNickname.children[1].value='';
       signupPassword.children[1].value='';
