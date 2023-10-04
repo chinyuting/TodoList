@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo!</title>
+  <!-- <link rel="stylesheet" type="text/css" href="/src/style/main.css"> -->
+</head>
+<body>
+  <div class="signinSignup">
+    <div class="signinSignupPic">
+      <img src="../src/asset/images/left.png">
+    </div>
+    <div class="signinForm">
+      <h1>最實用的線上待辦事項服務</h1>
+      <div class="signinEmail" data-warn="此欄位不可為空">
+        <label for="signinEmail" >Email</label>
+        <input type="text" name="signinEmail" placeholder="請輸入Email" class="inputRequired">
+      </div>
+      <div class="signinPassword" data-warn="此欄位不可為空">
+        <label for="password" >密碼</label>
+        <input type="password"  name="password" placeholder="請輸入密碼" class="inputRequired">
+      </div>
+      <button type="button" class="darkButton signinButtom">登入</button>
+      <button type="button" class="toSignup lightButton">註冊帳號</button>
+    </div>
+
+    <div class="signupForm displayNone">
+      <h1>註冊帳號</h1>
+      <div class="signupEmail"  data-warn="此欄位不可為空">
+        <label for="signupEmail">Email</label>
+        <input type="text"  name="signupEmail" placeholder="請輸入Email" class="inputRequired">
+      </div>
+      <div class="signupNickname"  data-warn="此欄位不可為空">
+        <label for="signupNickname">您的暱稱</label>
+        <input type="text"  name="signupNickname" placeholder="請輸入您的暱稱" class="inputRequired">
+      </div>
+      <div class="signupPassword"  data-warn="此欄位不可為空">
+        <label for="signupPassword">密碼</label>
+        <input type="text"  name="signupPassword" placeholder="請輸入密碼" class="inputRequired">
+      </div>
+      <div class="confirmPassword"  data-warn="此欄位不可為空">
+        <label for="confirmPassword">再次輸入密碼</label>
+        <input type="text"  name="confirmPassword" placeholder="請再次輸入密碼" class="inputRequired">
+      </div>
+      <button type="button" class="darkButton signupButtom">註冊帳號</button>
+      <button type="button" class="toSignin lightButton">〱 回登入畫面</button>
+    </div>
+  </div>
+
+  <div class="todoListPage displayNone">
+    <nav>
+      <div class="logo">
+        <img src="../src/asset/images/logo.png">
+      </div>
+        <h3 class="TodoListTitle"></h3>
+        <button type="button" class="lightButton logoutButton">登出</button>
+    </nav>
+    <div class="todoList">
+        <input type="text"  name="addTodo" class="todoInput" placeholder="新增代辦事項">
+        <button type="button" class="darkButton addTodoButton">＋</button>
+      <div class="todosCard">
+        <ul class="todosTab">
+          <li value="all" class="currentTab">全部</li>
+          <li value="processing">待完成</li>
+          <li value="done">已完成</li>
+        </ul>
+        <ul class="todosList"></ul>
+        <div class="todosFooter">
+          <p class="itemDone"></p>
+          <button type="button" class="removeAllDone">清除已完成項目</button>
+        </div>
+      </div>
+
+      <div class="todosNothing displayNone">
+        <p>目前尚無待辦事項</p>
+        <img src="../src/asset/images/empty.png" alt="">
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
