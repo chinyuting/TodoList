@@ -2,7 +2,6 @@ import css from "./style/main.css"
 
 const apiUrl = `https://todoo.5xcamp.us`;
 let todos = [];
-let mao='hahabaga';
 
 const signinSignupPage = document.querySelector('.signinSignup');
 const signinButtom = document.querySelector('.signinButtom');
