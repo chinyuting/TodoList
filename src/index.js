@@ -1,6 +1,6 @@
 import css from "./style/main.css"
 
-const apiUrl = `https://todoo.5xcamp.us`;
+const apiUrl = `http://localhost:3000/api`;
 let todos = [];
 
 const signinSignupPage = document.querySelector('.signinSignup');
@@ -101,6 +101,7 @@ logoutButton.addEventListener('click', function(e) {
 addTodoButton.addEventListener('click', function(e) {
  let value = todoInput.value.trim();
  if(value) {
+  console.log('addvalue',value);
   addTodo(value);
  } else {
   Swal.fire({
@@ -119,13 +120,15 @@ todoInput.addEventListener("keydown", function(e) {
 
 
 function signUp(email, nickname, password) {
-  axios.post(`${apiUrl}/users`,{
+  axios.post(`${apiUrl}/users`,
+  {
     "user": {
       "email": email,
       "nickname": nickname,
       "password": password
     }
-  })
+  }
+  )
     .then(res => {
       Swal.fire({
         icon: 'success',
@@ -140,16 +143,15 @@ function signUp(email, nickname, password) {
       removeClass(signinPage);
     })
     .catch(error => {
-      const errorData = error.response.data;
       let errorDetail = '';
-      errorData.error.forEach((element) => {
-        errorDetail += `<li>${element}</li>`
+      console.log(error);
+      error.response.data.errors.forEach((element) => {
+        errorDetail += `<li>${element.msg}</li>`
       })
-      console.log(errorDetail);
       Swal.fire({
         icon: 'error',
-        title: `${errorData.message}`,
-        html: `<ul>${errorDetail}</ul>`,
+        title: `註冊失敗`,
+        html:`${errorDetail}`
       })
     })
 }
@@ -164,22 +166,25 @@ function login(email, password) {
     .then(res => {
       Swal.fire({
         icon: 'success',
-        title: '已登入',
+        title: `${res.data.message}`,
       })
       axios.defaults.headers.common['Authorization'] = res.headers.authorization;
       localStorage.setItem("token",res.headers.authorization);
-      localStorage.setItem("nickname",res.data.nickname);
+      localStorage.setItem("nickname",res.data.user.nickname);
       signinEmail.children[1].value='';
       signinPassword.children[1].value='';
       toTodoList();
       getTodos();
     })
     .catch(error => {
-      console.log(error.response)
-      
+      let errorDetail = '';
+      error.response.data.errors.forEach((element) => {
+        errorDetail += `<li>${element.msg}</li>`
+      })
       Swal.fire({
         icon: 'error',
-        title: `${error.response.data.message}`,
+        title: `登入失敗`,
+        html:`${errorDetail}`
       })
     })
 }
@@ -209,10 +214,10 @@ function toTodoList() {
 function getTodos() {
   axios.get(`${apiUrl}/todos`)
     .then((res) => {
-      todos = res.data.todos
+      todos = res.data
       console.log(todos);
       if (todos.length !== 0) {
-        // renderTodo(todos);
+        renderTodo(todos);
         getCurrentTab(currentTab.getAttribute('value'))
         countUndo(todos);
         addClass(todosNothing);
@@ -222,7 +227,17 @@ function getTodos() {
         removeClass(todosNothing);
       }
     })
-    .catch((error) => {console.log(error)})
+    .catch(error => {
+      let errorDetail = '';
+      error.response.data.errors.forEach((element) => {
+        errorDetail += `<li>${element.msg}</li>`
+      })
+      Swal.fire({
+        icon: 'error',
+        title: `失敗`,
+        html:`${errorDetail}`
+      })
+    })
 }
 
 function renderTodo(item) {
@@ -256,30 +271,33 @@ function countUndo(item) {
 }
 
 function addTodo(todocontent) {
-  axios.post(`${apiUrl}/todos`,{
-    todo: {
-      'content': todocontent,
-    }
-  })
+  console.log('todocontent',todocontent);
+  axios.post(`${apiUrl}/todos`,
+    {'content': todocontent,}
+  )
     .then((res) => {
       todos = res.data;
       todoInput.value = ""
       getTodos();
     })
-    .catch((error) => {
+    .catch(error => {
+      let errorDetail = '';
+      console.log(error.response.data);
+      error.response.data.errors.forEach((element) => {
+        errorDetail += `<li>${element.msg}</li>`
+      })
       Swal.fire({
         icon: 'error',
-        title: `${error.response.data.message}`,
-
+        title: `失敗`,
+        html:`${errorDetail}`
       })
     })
 }
 
 function editTodo(todoId, todocontent) {
-  axios.put(`${apiUrl}/todos/${todoId}`,{
-    todo: {
-      'content': todocontent,
-    }
+
+  axios.put(`${apiUrl}/todos/edit/${todoId}`,{
+    'content': todocontent,
   })
     .then((res) => {
       console.log(res)
@@ -289,7 +307,18 @@ function editTodo(todoId, todocontent) {
         title: '修改成功',
       })
     })
-    .catch((error) => {console.log(error)})
+    .catch(error => {
+      let errorDetail = '';
+      console.log(error.response.data);
+      error.response.data.errors.forEach((element) => {
+        errorDetail += `<li>${element.msg}</li>`
+      })
+      Swal.fire({
+        icon: 'error',
+        title: `失敗`,
+        html:`${errorDetail}`
+      })
+    })
 }
 
 function deleteTodo(todoId) {
@@ -302,16 +331,38 @@ function deleteTodo(todoId) {
         title: '已刪除',
       })
     })
-    .catch((error) => {console.log(error)})
+    .catch(error => {
+      let errorDetail = '';
+      console.log(error.response.data);
+      error.response.data.errors.forEach((element) => {
+        errorDetail += `<li>${element.msg}</li>`
+      })
+      Swal.fire({
+        icon: 'error',
+        title: `失敗`,
+        html:`${errorDetail}`
+      })
+    })
 }
 
 function toggleTodo(todoId) {
-  axios.patch(`${apiUrl}/todos/${todoId}/toggle`,{})
+  axios.put(`${apiUrl}/todos/complete/${todoId}`,{})
     .then((res) => {
       console.log(res);
       getTodos();
     })
-    .catch((error) => {console.log(error)})
+    .catch(error => {
+      let errorDetail = '';
+      console.log(error.response.data);
+      error.response.data.errors.forEach((element) => {
+        errorDetail += `<li>${element.msg}</li>`
+      })
+      Swal.fire({
+        icon: 'error',
+        title: `失敗`,
+        html:`${errorDetail}`
+      })
+    })
 }
 
 
